@@ -183,8 +183,33 @@ namespace Il2CppInspector
             else {
                 Position = Header.stringOffset;
 
+                Dictionary<string, string> nameMapping = null;
+                if (File.Exists("nameTranslation.txt"))
+                {
+                    string[] nameTranslations = File.ReadAllLines("nameTranslation.txt");
+                    nameMapping = new Dictionary<string, string>();
+                    foreach (var line in nameTranslations)
+                    {
+                        var split = line.Split("⇨", StringSplitOptions.RemoveEmptyEntries);
+                        if (split.Length < 2)
+                            continue;
+
+                        nameMapping[split[0]] = split[1];
+                    }
+
+                }
+
                 while (Position < Header.stringOffset + Header.stringCount)
-                    Strings.Add((int) Position - Header.stringOffset, ReadNullTerminatedString());
+                {
+                    int key = (int)Position - Header.stringOffset;
+                    string stringFromMeta = ReadNullTerminatedString();
+
+                    if (nameMapping != null && nameMapping.ContainsKey(stringFromMeta))
+                        stringFromMeta = nameMapping[stringFromMeta];
+
+
+                    Strings.Add(key, stringFromMeta);
+                }
             }
 
             // Get all string literals

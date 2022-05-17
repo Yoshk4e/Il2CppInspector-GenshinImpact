@@ -87,7 +87,7 @@ namespace Il2CppInspector
         public ulong methodPointerCount;
         public ulong methodPointers;
         [Version(Min = 24.5, Max = 24.5)]
-        [Version(Min = 27.1)] 
+        [Version(Min = 27.1)]
         public long adjustorThunkCount;
         [Version(Min = 24.5, Max = 24.5)]
         [Version(Min = 27.1)]
@@ -136,6 +136,21 @@ namespace Il2CppInspector
         public ulong metadataUsagesCount;
         [Version(Min = 19)]
         public ulong metadataUsages;
+    }
+
+    public class MihoyoUsages
+    {
+        public ulong typeInfoUsageCount;
+        public ulong typeInfoUsage;
+
+        public ulong methodDefRefUsageCount;
+        public ulong methodDefRefUsage;
+
+        public ulong fieldInfoUsageCount;
+        public ulong fieldInfoUsage;
+
+        public ulong stringLiteralUsageCount;
+        public ulong stringLiteralUsage;
     }
 #pragma warning restore CS0649
 
@@ -200,10 +215,10 @@ namespace Il2CppInspector
         public ulong datapoint;
         public ulong bits; // this should be private but we need it to be public for BinaryObjectReader to work
 
-        public uint attrs => (uint) bits & 0xffff; /* param attributes or field flags */
+        public uint attrs => (uint)bits & 0xffff; /* param attributes or field flags */
         public Il2CppTypeEnum type => (Il2CppTypeEnum)((bits >> 16) & 0xff);
         // TODO: Unity 2021.1 (v27.2): num_mods becomes 1 bit shorter, shifting byref and pinned right 1 bit, valuetype bit added
-        public uint num_mods => (uint) (bits >> 24) & 0x3f; /* max 64 modifiers follow at the end */
+        public uint num_mods => (uint)(bits >> 24) & 0x3f; /* max 64 modifiers follow at the end */
         public bool byref => ((bits >> 30) & 1) == 1;
         public bool pinned => (bits >> 31) == 1; /* valid when included in a local var signature */
     }
@@ -261,7 +276,7 @@ namespace Il2CppInspector
         public int methodIndex;
         public int invokerIndex;
         [Version(Min = 24.5, Max = 24.5)]
-        [Version(Min = 27.1)] 
+        [Version(Min = 27.1)]
         public int adjustorThunk;
     }
 }
