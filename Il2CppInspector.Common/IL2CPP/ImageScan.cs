@@ -94,8 +94,8 @@ namespace Il2CppInspector
             //return (0x188132170, 0x18813CA00); // 2.6.52 Beta
             //return (0x188121740, 0x18812BFD0); // 2.6.52 Beta
             //return (0x1881205C0, 0x18812AE50); // 2.6.54 Beta
-            //return (0x0, 0x0); // 2.7
-            return (0x18833FC70, 0x18834A310); // 2.7.50 Beta
+            return (0x188121630, 0x18812BEC0); // 2.7
+            //return (0x18833FC70, 0x18834A310); // 2.7.50 Beta
 
         }
     }
