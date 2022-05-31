@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (c) 2019-2020 Carter Bush - https://github.com/carterbush
     Copyright (c) 2020-2021 Katy Coe - http://www.djkaty.com - https://github.com/djkaty
     Copyright 2020 Robert Xiao - https://robertxiao.ca
@@ -69,6 +69,9 @@ namespace Il2CppInspector
             //ulong mihoyoUsageVA = 0x18812AEC0; // 2.6.54 Beta
             ulong mihoyoUsageVA = 0x18812BF30; // 2.7
             //ulong mihoyoUsageVA = 0x188390BB0; // 2.7.50 Beta
+            //ulong mihoyoUsageVA = 0x188397410; // 2.7.51 Beta
+            //ulong mihoyoUsageVA = 0x1883A0090; // 2.7.52 Beta
+            
             var mihoyoUsage = package.Binary.Image.ReadMappedObject<MihoyoUsages>(mihoyoUsageVA);
 
             uint index;

@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright 2020-2021 Katy Coe - http://www.djkaty.com - https://github.com/djkaty
 
     All rights reserved.
@@ -96,6 +96,8 @@ namespace Il2CppInspector
             //return (0x1881205C0, 0x18812AE50); // 2.6.54 Beta
             return (0x188121630, 0x18812BEC0); // 2.7
             //return (0x18833FC70, 0x18834A310); // 2.7.50 Beta
+            //return (0x188347BE0, 0x188352280); // 2.7.51 Beta
+            //return (0x18834F2A0, 0x188359940); // 2.7.52 Beta
 
         }
     }
