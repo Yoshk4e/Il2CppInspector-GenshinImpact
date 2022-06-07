@@ -71,6 +71,7 @@ namespace Il2CppInspector
             //ulong mihoyoUsageVA = 0x188390BB0; // 2.7.50 Beta
             //ulong mihoyoUsageVA = 0x188397410; // 2.7.51 Beta
             //ulong mihoyoUsageVA = 0x1883A0090; // 2.7.52 Beta
+            //ulong mihoyoUsageVA = 0x1883AB080; // 2.7.53 Beta
             
             var mihoyoUsage = package.Binary.Image.ReadMappedObject<MihoyoUsages>(mihoyoUsageVA);
 
