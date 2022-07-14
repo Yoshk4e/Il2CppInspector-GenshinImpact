@@ -101,8 +101,8 @@ namespace Il2CppInspector
             //return (0x188359FF0, 0x188364740); // 2.7.53 Beta
             //return (0x18835A900, 0x188365000); // 2.7.54 Beta
             //return (0x188358AC0, 0x1883631C0); // OSRELWin2.8
-            return (0x18839E0E0, 0x1883A87E0); // CNRELWin2.8
-            //return (0x0, 0x0); // OSCBWin2.8.50
+            //return (0x18839E0E0, 0x1883A87E0); // CNRELWin2.8
+            return (0x188A40600, 0x188A47D20); // OSCBWin2.8.50 & CNCBWin2.8.50 
 
         }
     }
