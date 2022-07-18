@@ -75,7 +75,8 @@ namespace Il2CppInspector
             //ulong mihoyoUsageVA = 0x1883AB8D0; // 2.7.54 Beta
             //ulong mihoyoUsageVA = 0x1883A9A90; // OSRELWin2.8
             //ulong mihoyoUsageVA = 0x1883A9A90; // CNRELWin2.8
-            ulong mihoyoUsageVA = 0x188A8C7F0; // OSCBWin2.8.50 & CNCBWin2.8.50
+            //ulong mihoyoUsageVA = 0x188A8C7F0; // OSCBWin2.8.50 & CNCBWin2.8.50
+            ulong mihoyoUsageVA = 0x18879F1A0; // OSCBWin2.8.51 & CNCBWin2.8.51
 
             var mihoyoUsage = package.Binary.Image.ReadMappedObject<MihoyoUsages>(mihoyoUsageVA);
 
