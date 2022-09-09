@@ -112,7 +112,7 @@ namespace Il2CppInspector
             //return (0x188C71310, 0x188C7B700); // OSCBWin3.0.50
             //return (0x188CB0DA0, 0x188CBB190); // CNCBWin3.0.50
             //return (0x188C79D50, 0x188C84140); // OSCBWin3.0.51
-            return (0x188C37650, 0x188C41A40); // OSCBWin3.0.52
+            return (0x188C88EB0, 0x188C932A0); // OSCBWin3.0.52
         }
     }
 }
