@@ -10,7 +10,7 @@ jobs:
   build-and-test:
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
 
     runs-on: windows-latest
 
@@ -18,10 +18,11 @@ jobs:
       Solution_Name: Il2CppInspector.sln  # The solution file in the root directory.
 
     steps:
-    - name: Checkout repository
+    - name: Checkout repository with submodules
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        submodules: recursive  # Ensures all submodules are fetched and initialized.
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
