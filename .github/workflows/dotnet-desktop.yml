@@ -49,4 +49,7 @@ jobs:
       with:
         name: Build-Artifacts
         path: |
-          ./bin/${{ matrix.configuration }}/  # This is the default build output path
+         Il2CppInspector/Il2CppInspector.CLI/bin/Release/netcoreapp3.0/win-x64/publish/Il2CppInspector.exe
+         Il2CppInspector/Il2CppInspector.GUI/bin/Release/netcoreapp3.1/win-x64/publish/Il2CppInspector.exe
+        if-no-files-found: warn
+        include-hidden-files: false
