@@ -3,37 +3,37 @@ name: Build and Publish .NET Application
 on:
   push:
     branches:
-      - main  # Trigger the build on push to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Trigger the build on pull requests to the main branch
-  workflow_dispatch:  # Allows manual triggering of the workflow
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest  # You can change this to macos-latest or ubuntu-latest depending on your needs
+    runs-on: windows-latest
 
     steps:
-    # Checkout the code
-    - name: Checkout code
+    # Checkout the code and initialize submodules
+    - name: Checkout code with submodules
       uses: actions/checkout@v3
+      with:
+        submodules: true
 
-    # Install .NET Core 3.1 SDK and Runtime
-    - name: Install .NET Core 3.1 SDK and Runtime
+    # Install .NET Core 3.1 SDK and Runtime with retry logic
+    - name: Install .NET Core 3.1 Runtime
       run: |
-        # Install .NET Core 3.1 SDK using Invoke-WebRequest (Windows PowerShell)
-        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/2e4c7f61-3fa4-4bc4-bef3-73f6a3b38515/d27645cf4db82c05a553183ed0d4ef72/dotnet-sdk-3.1.426-win-x64.exe -OutFile dotnet-sdk-3.1.426-win-x64.exe
-        Start-Process -FilePath dotnet-sdk-3.1.426-win-x64.exe -ArgumentList '/quiet', '/norestart' -Wait
-        # Install .NET Core 3.1 Runtime
-        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/18bfae1f-5b3a-4d10-b85c-7ec1f9c08bcf/935e91d0805f51c14e76066e28967891/dotnet-runtime-3.1.26-win-x64.exe -OutFile dotnet-runtime-3.1.26-win-x64.exe
-        Start-Process -FilePath dotnet-runtime-3.1.26-win-x64.exe -ArgumentList '/quiet', '/norestart' -Wait
-        echo "Dotnet Core 3.1 SDK and Runtime have been installed"
-
+        choco install dotnetcore-sdk --version=3.1.426 -y
+        choco install dotnetcore-runtime --version=3.1.32 -y
+        echo "C:\Program Files\dotnet" >> $GITHUB_PATH
+        
     # Setup .NET SDK
+
+    
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '3.1.x'  # This ensures that .NET Core 3.1 SDK is available for build tasks
+        dotnet-version: '3.1.x'
 
     # Restore dependencies
     - name: Restore dependencies
@@ -47,13 +47,8 @@ jobs:
     - name: Publish the application
       run: |
         dotnet publish Il2CppInspector.sln -c Release
-        # Optionally, you can specify the runtime with the '-r' flag for cross-platform publishing
-        # For example, -r win-x64, -r linux-x64, or -r osx-x64
-        # dotnet publish Il2CppInspector.sln -c Release -r win-x64
-        # dotnet publish Il2CppInspector.sln -c Release -r linux-x64
-        # dotnet publish Il2CppInspector.sln -c Release -r osx-x64
 
-    # Upload the build artifacts (optional step)
+    # Upload the build artifacts
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
