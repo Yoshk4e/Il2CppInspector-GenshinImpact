@@ -1,55 +1,62 @@
-name: Il2CppInspector Build and Test
+name: Build and Publish .NET Application
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - main  # Trigger the build on push to the main branch
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - main  # Trigger the build on pull requests to the main branch
 
 jobs:
-  build-and-test:
-    strategy:
-      matrix:
-        configuration: [Release]
-
-    runs-on: windows-latest
-
-    env:
-      Solution_Name: Il2CppInspector.sln  # The solution file in the root directory.
+  build:
+    runs-on: windows-latest  # You can change this to macos-latest or ubuntu-latest depending on your needs
 
     steps:
-    - name: Checkout repository with submodules
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        submodules: recursive  # Ensures all submodules are fetched and initialized.
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Install .NET Core 3.1 Runtime
+    # Install .NET Core 3.1 SDK and Runtime
+    - name: Install .NET Core 3.1 SDK and Runtime
       run: |
-        choco install dotnetcore-sdk --version=3.1.426 -y
-        choco install dotnetcore-runtime --version=3.1.32 -y
-        echo "C:\Program Files\dotnet" >> $GITHUB_PATH
+        # Install .NET Core 3.1 SDK
+        wget https://download.visualstudio.microsoft.com/download/pr/2e4c7f61-3fa4-4bc4-bef3-73f6a3b38515/d27645cf4db82c05a553183ed0d4ef72/dotnet-sdk-3.1.426-win-x64.exe -O dotnet-sdk-3.1.426-win-x64.exe
+        start /wait dotnet-sdk-3.1.426-win-x64.exe /quiet /norestart
+        # Install .NET Core 3.1 Runtime
+        wget https://download.visualstudio.microsoft.com/download/pr/18bfae1f-5b3a-4d10-b85c-7ec1f9c08bcf/935e91d0805f51c14e76066e28967891/dotnet-runtime-3.1.26-win-x64.exe -O dotnet-runtime-3.1.26-win-x64.exe
+        start /wait dotnet-runtime-3.1.26-win-x64.exe /quiet /norestart
+        echo "Dotnet Core 3.1 SDK and Runtime have been installed"
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
+    # Setup .NET SDK
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '3.1.x'  # This ensures that .NET Core 3.1 SDK is available for build tasks
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
-
+    # Restore dependencies
     - name: Restore dependencies
-      run: dotnet restore ${{ env.Solution_Name }}
+      run: dotnet restore Il2CppInspector.sln
 
-    - name: Build solution
-      run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }}
+    # Build the solution
+    - name: Build the solution
+      run: dotnet build Il2CppInspector.sln --configuration Release
 
+    # Publish the application (CLI and GUI)
+    - name: Publish the application
+      run: |
+        dotnet publish Il2CppInspector.sln -c Release
+        # Optionally, you can specify the runtime with the '-r' flag for cross-platform publishing
+        # For example, -r win-x64, -r linux-x64, or -r osx-x64
+        # dotnet publish Il2CppInspector.sln -c Release -r win-x64
+        # dotnet publish Il2CppInspector.sln -c Release -r linux-x64
+        # dotnet publish Il2CppInspector.sln -c Release -r osx-x64
+
+    # Upload the build artifacts (optional step)
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Build-Artifacts
         path: |
-         Il2CppInspector/Il2CppInspector.CLI/bin/Release/netcoreapp3.0/win-x64/publish/Il2CppInspector.exe
-         Il2CppInspector/Il2CppInspector.GUI/bin/Release/netcoreapp3.1/win-x64/publish/Il2CppInspector.exe
-        if-no-files-found: warn
-        include-hidden-files: false
+          Il2CppInspector/Il2CppInspector.CLI/bin/Release/netcoreapp3.0/win-x64/publish/Il2CppInspector.exe
+          Il2CppInspector/Il2CppInspector.GUI/bin/Release/netcoreapp3.1/win-x64/publish/Il2CppInspector.exe
