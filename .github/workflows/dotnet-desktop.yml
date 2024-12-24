@@ -28,7 +28,8 @@ jobs:
       run: |
         choco install dotnetcore-sdk --version=3.1.426 -y
         choco install dotnetcore-runtime --version=3.1.32 -y
-        refreshenv
+        echo "Adding .NET Core 3.1 to PATH"
+        echo "::add-path::C:\Program Files\dotnet"
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
