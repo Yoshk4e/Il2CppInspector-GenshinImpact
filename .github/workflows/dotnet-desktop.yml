@@ -24,6 +24,12 @@ jobs:
         fetch-depth: 0
         submodules: recursive  # Ensures all submodules are fetched and initialized.
 
+    - name: Install .NET Core 3.1 Runtime
+      run: |
+        choco install dotnetcore-sdk --version=3.1.426 -y
+        choco install dotnetcore-runtime --version=3.1.32 -y
+        refreshenv
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
