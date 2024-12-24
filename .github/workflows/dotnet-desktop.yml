@@ -21,12 +21,12 @@ jobs:
     # Install .NET Core 3.1 SDK and Runtime
     - name: Install .NET Core 3.1 SDK and Runtime
       run: |
-        # Install .NET Core 3.1 SDK
-        wget https://download.visualstudio.microsoft.com/download/pr/2e4c7f61-3fa4-4bc4-bef3-73f6a3b38515/d27645cf4db82c05a553183ed0d4ef72/dotnet-sdk-3.1.426-win-x64.exe -O dotnet-sdk-3.1.426-win-x64.exe
-        start /wait dotnet-sdk-3.1.426-win-x64.exe /quiet /norestart
+        # Install .NET Core 3.1 SDK using Invoke-WebRequest (Windows PowerShell)
+        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/2e4c7f61-3fa4-4bc4-bef3-73f6a3b38515/d27645cf4db82c05a553183ed0d4ef72/dotnet-sdk-3.1.426-win-x64.exe -OutFile dotnet-sdk-3.1.426-win-x64.exe
+        Start-Process -FilePath dotnet-sdk-3.1.426-win-x64.exe -ArgumentList '/quiet', '/norestart' -Wait
         # Install .NET Core 3.1 Runtime
-        wget https://download.visualstudio.microsoft.com/download/pr/18bfae1f-5b3a-4d10-b85c-7ec1f9c08bcf/935e91d0805f51c14e76066e28967891/dotnet-runtime-3.1.26-win-x64.exe -O dotnet-runtime-3.1.26-win-x64.exe
-        start /wait dotnet-runtime-3.1.26-win-x64.exe /quiet /norestart
+        Invoke-WebRequest -Uri https://download.visualstudio.microsoft.com/download/pr/18bfae1f-5b3a-4d10-b85c-7ec1f9c08bcf/935e91d0805f51c14e76066e28967891/dotnet-runtime-3.1.26-win-x64.exe -OutFile dotnet-runtime-3.1.26-win-x64.exe
+        Start-Process -FilePath dotnet-runtime-3.1.26-win-x64.exe -ArgumentList '/quiet', '/norestart' -Wait
         echo "Dotnet Core 3.1 SDK and Runtime have been installed"
 
     # Setup .NET SDK
