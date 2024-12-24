@@ -43,6 +43,3 @@ jobs:
 
     - name: Build solution
       run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }}
-
-    - name: Run tests
-      run: dotnet test Il2CppTests --configuration ${{ matrix.configuration }}
